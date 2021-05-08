@@ -12,6 +12,21 @@ nav {
   border-bottom: 5px solid  #EF476F;
 }
 
+#coin-layer {
+    padding-right: 10px;
+    color: #FFF562;
+}
+
+#coin-layer a {
+    color: #fa08fa;
+    font-weight: bolder;
+}
+
+#coin-layer a:hover {
+    color: black;
+    font-weight: bolder;
+}
+
 #headercontainer {
   margin: 0;
 }
