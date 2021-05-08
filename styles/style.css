@@ -1,0 +1,233 @@
+@font-face {
+    font-family: 'Harlow';
+    src:url(../Fonts/Harlow.ttf)
+}
+
+body {
+  margin: 0;
+  background: url(../Assets/Testing/pattern_background.png) repeat;
+}
+
+nav {
+  border-bottom: 5px solid  #EF476F;
+}
+
+#headercontainer {
+  margin: 0;
+}
+
+#logocontainer img {
+  width: 100%;
+  height: auto;
+  max-width: 800px;
+}
+
+#logocontainer img:hover {
+    transform: scale(1.08);
+    /* transition: transform .3s; */
+    transition: ease-in-out .3s;
+    -webkit-animation: smoothCriminal 15s ease infinite;
+    -moz-animation: smoothCriminal 15s ease infinite;
+    animation: smoothCriminal 15s ease infinite;
+}
+
+.datacontainer {
+    margin: 0px
+}
+
+.navButton {
+    margin: 0 10px;
+	box-shadow: 0px 10px 17px 6px #fa08fa;
+	background-color: #fff562;
+	border-radius: 4px;
+	border: 1px solid #fff562;
+	display: inline-block;
+	cursor: pointer;
+	font-family: 'Harlow';
+	font-size: 28px;
+	font-weight: lighter;
+	padding: 9px 17px;
+}
+.navButton:hover {
+    box-shadow: 0px 10px 17px 6px #FFF562;
+
+    transform: scale(1.08);
+    transition: transform .3s;
+
+    /* Apply zoom animation */
+    background: #00bef3;
+    background-size: 400% 400%;
+
+    -webkit-animation: smoothCriminal 15s ease infinite;
+    -moz-animation: smoothCriminal 15s ease infinite;
+    animation: smoothCriminal 15s ease infinite;
+    color: #FFF562;
+    font-weight: bold;
+}
+.navButton:active {
+	position: relative;
+	top: 1px;
+}
+
+.tableButton {
+	background-color: #00bef3;
+	border-radius: 6px;
+	display: inline-block;
+	cursor: pointer;
+	color: #FFF562;
+	font-family: 'Harlow';
+	font-size: 22px;
+	font-weight: lighter;
+	padding: 3px 19px;
+	text-decoration: none;
+}
+.tableButton:hover {
+    /* Zoom the buttons */
+    transform: scale(1.08);
+    transition: transform .3s;
+
+    /* Apply zoom animation */
+    background: #FFF562;
+    background-size: 400% 400%;
+
+    -webkit-animation: smoothCriminal 15s ease infinite;
+    -moz-animation: smoothCriminal 15s ease infinite;
+    animation: smoothCriminal 15s ease infinite;
+    color: #fa08fa;
+    font-weight: bold;
+}
+
+@-webkit-keyframes smoothCriminal {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@-moz-keyframes smoothCriminal {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+@keyframes smoothCriminal {
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+}
+
+
+.annoyingLookingTable {
+    background-color: #FFF562;
+    width: 100%;
+    text-align: left;
+    border-collapse: collapse;
+}
+.annoyingLookingTable td, table.annoyingLookingTable th {
+    padding: 10px;
+}
+.annoyingLookingTable tbody td {
+    font-size: 13px;
+}
+.annoyingLookingTable tr:nth-child(even) {
+    background: #FFFFFF;
+}
+.annoyingLookingTable thead {
+    background: #FA08FA;
+    position: sticky
+}
+.annoyingLookingTable thead th {
+    position: sticky;
+    top: 0
+
+    font-size: 19px;
+    font-weight: bold;
+    color: #FFF562;
+    text-align: left;
+    border-left: 0px solid #A40808;
+}
+.annoyingLookingTable thead th:first-child {
+    border-left: none;
+}
+
+.annoyingLookingTable td:hover {
+    transform: scale(1.08);
+    transition: transform .3s;
+    border-radius: 15px;
+    background-color: #FA08FA;
+	/* border: 3px solid #fff562; */
+
+    /* Apply zoom animation */
+    background-size: 400% 400%;
+
+    -webkit-animation: smoothCriminal 15s ease infinite;
+    -moz-animation: smoothCriminal 15s ease infinite;
+    animation: smoothCriminal 15s ease infinite;
+
+    color:#fff562;
+    font-weight: bold;
+}
+
+.cardBanner {
+    display: flex;
+    align-items: flex-start;
+    padding: 0px 0px 0px 15px;
+    height: 62.7px;
+    background-color: #FA08FA;
+    font-family: 'Harlow';
+    font-size: 28pt;
+    color: #FFF562;
+}
+
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.coinCardDiv {
+    display: flex;
+    flex-direction: column;
+    height: 300px;
+    width: 300px;
+    margin: 25px;
+    background-color: #FFF562;
+    align-items: center;
+    box-shadow: 0px 10px 17px 6px #fa08fa;
+}
+
+.coinCardDiv h1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    min-width: 100%;
+    background-color: #00bef3;
+    color: #FFF562;
+}
+
+.coinCardDiv:hover h1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    min-width: 100%;
+    background-color: #fa08fa;
+    color: #FFF562;
+}
+
+.coinCardDiv:hover {
+    box-shadow: 0px 10px 17px 6px #FFF562;
+
+    transform: scale(1.08);
+    transition: transform .3s;
+
+    /* Apply zoom animation */
+    background: #00bef3;
+    background-size: 400% 400%;
+
+    -webkit-animation: smoothCriminal 15s ease infinite;
+    -moz-animation: smoothCriminal 15s ease infinite;
+    animation: smoothCriminal 15s ease infinite;
+    color: #FFF562;
+    font-weight: bold;
+}
+/*# sourceMappingURL=style.css.map */
