@@ -18,6 +18,17 @@ nav {
     max-width: 800px;
 }
 
+@for $i from 1 through 10 {
+    tr:nth-child(#{$i}) {
+      $time: $i * 3 + unquote('');
+      $delay: unquote('0.' + $time + 's');
+      animation-name: showRow;
+      animation-duration: 1s;
+      animation-delay: $delay; 
+      animation-timing-function: ease-in;
+    }
+  }
+
 
 
 

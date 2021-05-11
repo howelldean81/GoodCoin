@@ -84,6 +84,65 @@ nav {
 	top: 1px;
 }
 
+.navButton img {
+    padding: 0px;
+    margin: 0px;
+}
+
+.searchButton {
+    margin: 0px;
+	box-shadow: 6px 10px 17px 6px #fa08fa;
+	background-color: #fff562;
+    border-top-right-radius: 4px;
+    border-bottom-right-radius: 4px;
+	border: 1px solid #fff562;
+	display: inline-block;
+	cursor: pointer;
+	font-family: 'Harlow';
+	font-size: 28px;
+	font-weight: lighter;
+	padding: 9px 17px;
+}
+.searchButton:hover {
+    box-shadow: 6px 10px 17px 6px #fa08fa;
+
+    /* Apply zoom animation */
+    background: #fa08fa;
+    background-size: 400% 400%;
+
+    -webkit-animation: smoothCriminal 15s ease infinite;
+    -moz-animation: smoothCriminal 15s ease infinite;
+    animation: smoothCriminal 15s ease infinite;
+    color: #FFF562;
+    font-weight: bold;
+}
+.searchButton:active {
+	position: relative;
+	top: 1px;
+}
+
+.searchBox {
+    margin: 0px 0px 0px 10px;
+    padding-right: 0px;
+	box-shadow: 0px 10px 17px 6px #fa08fa;
+	background-color: #00bef3;
+    border-top-left-radius: 4px;
+    border-bottom-left-radius: 4px;
+	border: 1px solid #fff562;
+    color: #fff562;
+	display: inline-block;
+	cursor: auto;
+	font-family: 'Harlow';
+	font-size: 28px;
+	font-weight: lighter;
+	padding: 9px 17px;
+}
+
+.searchBox:active {
+	position: relative;
+	top: 1px;
+}
+
 .tableButton {
 	background-color: #00bef3;
 	border-radius: 6px;
@@ -128,7 +187,6 @@ nav {
     100%{background-position:0% 50%}
 }
 
-
 .annoyingLookingTable {
     background-color: #FFF562;
     width: 100%;
@@ -139,35 +197,34 @@ nav {
     padding: 10px;
 }
 .annoyingLookingTable tbody td {
-    font-size: 13px;
+    font-size: 22px;
+    font-weight: bolder;
+    padding: 0px 0px 0px 20px;
 }
 .annoyingLookingTable tr:nth-child(even) {
     background: #FFFFFF;
 }
 .annoyingLookingTable thead {
     background: #FA08FA;
-    position: sticky
+    /* position: sticky */
 }
 .annoyingLookingTable thead th {
     position: sticky;
-    top: 0
-
+    top: 0;
     font-size: 19px;
     font-weight: bold;
     color: #FFF562;
     text-align: left;
-    border-left: 0px solid #A40808;
-}
-.annoyingLookingTable thead th:first-child {
-    border-left: none;
 }
 
 .annoyingLookingTable td:hover {
     transform: scale(1.08);
     transition: transform .3s;
+    font-size: 18pt;
     border-radius: 15px;
     background-color: #FA08FA;
-	/* border: 3px solid #fff562; */
+    -webkit-text-stroke: 1px #000000;
+	-webkit-text-fill-color: #fff562;
 
     /* Apply zoom animation */
     background-size: 400% 400%;
@@ -180,14 +237,31 @@ nav {
     font-weight: bold;
 }
 
+.annoyingLookingTable tbody>tr>:nth-child(1){
+    /* color:#00bef3; */
+    font-size: 20pt;
+    font-weight: bolder;
+    -webkit-text-stroke: 1px #FA08FA;
+	-webkit-text-fill-color: #00bef3;
+   }
+
+.annoyingLookingTable tbody>tr>:nth-child(1):hover {
+    /* color:#00bef3; */
+    font-size: 20pt;
+    font-weight: bolder;
+    -webkit-text-stroke: 1px #FFF562;
+	-webkit-text-fill-color: #00bef3;
+   }
+
 .cardBanner {
     display: flex;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: unsafe center;
     padding: 0px 0px 0px 15px;
     height: 62.7px;
     background-color: #FA08FA;
     font-family: 'Harlow';
-    font-size: 28pt;
+    font-size: 32pt;
     color: #FFF562;
 }
 
@@ -199,6 +273,7 @@ nav {
 }
 
 .coinCardDiv {
+    background-image: url(../Assets/Testing/card_background.png);
     display: flex;
     flex-direction: column;
     height: 300px;
@@ -229,15 +304,26 @@ nav {
     color: #FFF562;
 }
 
+.coinCardDiv p {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 28px;
+    padding: 10px;
+    min-width: 100%;
+    color: #fa08fa;
+}
+
 .coinCardDiv:hover {
+    background-image: url(../Assets/Testing/pattern_background.png);
     box-shadow: 0px 10px 17px 6px #FFF562;
 
     transform: scale(1.08);
     transition: transform .3s;
 
     /* Apply zoom animation */
-    background: #00bef3;
-    background-size: 400% 400%;
+    /* background: #00bef3; */
+    /* background-size: 400% 400%; */
 
     -webkit-animation: smoothCriminal 15s ease infinite;
     -moz-animation: smoothCriminal 15s ease infinite;
@@ -245,4 +331,65 @@ nav {
     color: #FFF562;
     font-weight: bold;
 }
+
+.searchCardDiv {
+    background-image: url(../Assets/Testing/card_background.png);
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    width: 50%;
+    margin: 50px 25px;
+    background-color: #FFF562;
+    align-items: center;
+    box-shadow: 0px 10px 17px 6px #fa08fa;
+}
+
+.searchCardDiv h1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    min-width: 100%;
+    background-color: #00bef3;
+    color: #FFF562;
+}
+
+.searchCardDiv:hover h1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 10px;
+    min-width: 100%;
+    background-color: #fa08fa;
+    color: #FFF562;
+}
+
+.searchCardDiv p {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    font-size: 28px;
+    padding: 10px;
+    min-width: 100%;
+    color: #fa08fa;
+}
+
+.searchCardDiv:hover {
+    background-image: url(../Assets/Testing/pattern_background.png);
+    box-shadow: 0px 10px 17px 6px #FFF562;
+
+    transform: scale(1.08);
+    transition: transform .3s;
+
+    -webkit-animation: smoothCriminal 15s ease infinite;
+    -moz-animation: smoothCriminal 15s ease infinite;
+    animation: smoothCriminal 15s ease infinite;
+    color: #FFF562;
+    font-weight: bold;
+}
+
+.iconBox {
+    padding: 25px;
+}
+
 /*# sourceMappingURL=style.css.map */

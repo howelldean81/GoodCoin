@@ -22,7 +22,6 @@ http://api.coinlayer.com/api/timeframe  |   http://api.coinlayer.com/api/change 
 */
 
 // Testing
-var topTenTest = []
 
 // API stuff
 const apiKeyAppend = "?access_key=a1f4a05d8a5c89bee72e0f45aa1082d4"
@@ -38,7 +37,7 @@ const homeButton = document.getElementById('home-button')
 const popularButton = document.getElementById('popular')
 const allCoinsButton = document.getElementById('all-coins')
 const top3Button = document.getElementById('top-3')
-const searchBox = document.getElementById('search-box')
+const searchButton = document.getElementById('search-button')
 
 // Div
 const fluidDiv = document.getElementById('data-container')
@@ -182,6 +181,17 @@ allCoinsButton.onclick = function () {
             }
             displayResults(finalArr)
 
+            sortSymButton.onclick = function () {
+                finalArr.sort((a, b) => {
+                    if (b.Name > a.Name)
+                    return -1
+                    if (b.Name < a.Name)
+                    return 1
+                    return 0
+                })
+                displayResults(finalArr)
+            }
+
             sortCostButton.onclick = function () {
                 finalArr.sort((cur, prev) => prev.Rate - cur.Rate)
                 displayResults(finalArr)
@@ -309,12 +319,21 @@ popularButton.onclick = function () {
                 })
             }
 
-            // finalArr.sort((cur, prev) => prev.Volume - cur.Volume).slice([0], [10])
-            // console.log(topTen)
-            // console.log(finalArr)
             topTenArr = finalArr.sort((cur, prev) => prev.Cap - cur.Cap).slice([0], [10])
 
             displayResults(topTenArr)
+
+            sortSymButton.onclick = function () {
+                topTenArr.sort((a, b) => {
+                    if (b.Name > a.Name)
+                    return -1
+                    if (b.Name < a.Name)
+                    return 1
+                    return 0
+                })
+                displayResults(topTenArr)
+            }
+
             sortVolButton.onclick = function () {
                 topTenArr.sort((cur, prev) => prev.Volume - cur.Volume)
                 displayResults(topTenArr)
@@ -410,21 +429,22 @@ top3Button.onclick = function () {
 
     function displayResults(coins) {
         coins.forEach((coin) => {
-          const coinCard        = document.createElement('div')
-          const coinHeader      = document.createElement('h1')
-          const coinText        = document.createElement('p')
+            const coinCard = document.createElement('div')
+            const coinHeader = document.createElement('h1')
+            const coinText = document.createElement('p')
 
-          coinCard.className    = 'coinCardDiv'
-      
-          coinHeader.innerHTML = `${coin.Name}`
-          coinText.innerHTML = `${usMoney.format(coin.Cap)}`
-          
-          cardContainer.appendChild(coinCard)
-          coinCard.appendChild(coinHeader)
-          coinCard.appendChild(coinText)
+            coinCard.className = 'coinCardDiv'
+
+            coinHeader.innerHTML = `${coin.Name}`
+            coinText.innerHTML = `${usMoney.format(coin.Cap)}`
+
+            cardContainer.appendChild(coinCard)
+            coinCard.appendChild(coinHeader)
+            coinCard.appendChild(coinText)
         })
 
-}}
+    }
+}
 
 function homePage() {
     // Empty contents of 'data-container'
@@ -494,3 +514,129 @@ function homePage() {
         })
 
 }}
+
+searchButton.onclick = function() {
+    // Empty contents of 'data-container'
+    fluidDiv.innerHTML = ""
+
+    const searchTerm = document.getElementById('search-box').value
+
+    const cardBanner        = document.createElement('div')
+    const cardContainer     = document.createElement('div')
+
+    fluidDiv.appendChild(cardBanner)
+    cardBanner.id           = 'card-banner'
+    cardBanner.className    = 'cardBanner'
+    cardBanner.innerHTML    = searchTerm
+
+    fluidDiv.appendChild(cardContainer)
+    cardContainer.id           = 'card-container'
+    cardContainer.className    = 'cardContainer'
+    
+    async function getCoin() {
+        try {
+            // Get Today and build elements
+            const res = await fetch(liveTickerAll + apiKeyAppend)
+            const data = await res.json()
+            const searchTerm = document.getElementById('card-banner').innerHTML
+            let todayRate = data.rates[searchTerm]
+
+            const infoCard = document.createElement('div')
+            const todayPrice = document.createElement('h1')
+            const infoTodayPrice = document.createElement('h2')
+
+            infoCard.className = 'searchCardDiv'
+
+            todayPrice.innerHTML = "Price"
+            infoTodayPrice.innerHTML = `${usMoney.format(todayRate)}`
+
+            // Get last month and build elements
+            let lastMonth = new Date()
+            lastMonth.setDate(lastMonth.getDate() - 30)
+            const res2 = await fetch(hisTickerAll + lastMonth.toISOString().substring(0, 10) + apiKeyAppend)
+            const data2 = await res2.json()
+
+            let lastMonthRate = data2.rates[searchTerm]
+
+            const lastMonthPrice = document.createElement('h1')
+            const infoLastMonthPrice = document.createElement('h2')
+
+            lastMonthPrice.innerHTML = "Last Month"
+            infoLastMonthPrice.innerHTML = `${usMoney.format(lastMonthRate)}`
+
+            // Get yesterday and build elements
+            let yesterDay = new Date()
+            yesterDay.setDate(yesterDay.getDate() -1)
+            const res3 = await fetch(hisTickerAll + yesterDay.toISOString().substring(0, 10) + apiKeyAppend)
+            const data3 = await res3.json()
+
+            let yesterDayRate = data3.rates[searchTerm]
+
+            const yesterDayPrice = document.createElement('h1')
+            const infoYesterDayPrice = document.createElement('h2')
+
+            yesterDayPrice.innerHTML = "Yesterday"
+            infoYesterDayPrice.innerHTML = `${usMoney.format(yesterDayRate)}`
+
+            // Get last Year's Price and build elements
+            let lastYear = new Date()
+            lastYear.setDate(lastYear.getDate() -365)
+            const res4 = await fetch(hisTickerAll + lastYear.toISOString().substring(0, 10) + apiKeyAppend)
+            const data4 = await res4.json()
+
+            let lastYearRate = data4.rates[searchTerm]
+
+            const lastYearPrice = document.createElement('h1')
+            const infoLastYearPrice = document.createElement('h2')
+
+            lastYearPrice.innerHTML = "Last Year"
+            infoLastYearPrice.innerHTML = `${usMoney.format(lastYearRate)}`
+
+            // Get 5 Year's Ago and build elements
+            let fiveYears = new Date()
+            fiveYears.setDate(fiveYears.getDate() -1825)
+            const res5 = await fetch(hisTickerAll + fiveYears.toISOString().substring(0, 10) + apiKeyAppend)
+            const data5 = await res5.json()
+
+            let fiveYearsRate = data5.rates[searchTerm]
+
+            const fiveYearsPrice = document.createElement('h1')
+            const infoFiveYearsPrice = document.createElement('h2')
+
+            fiveYearsPrice.innerHTML = "5 Years Ago"
+            infoFiveYearsPrice.innerHTML = `${usMoney.format(fiveYearsRate)}`
+
+            // Get icon and build elements
+            const res6 = await fetch(listTickerAll + apiKeyAppend)
+            const data6 = await res6.json()
+
+            let coinIcon = data6.crypto[searchTerm].icon_url
+            console.log(coinIcon)
+
+            const iconBox = document.createElement('div')
+            iconBox.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
+            
+            // Append elements to div
+            infoCard.append(iconBox)
+            cardContainer.appendChild(infoCard)
+            infoCard.appendChild(todayPrice)
+            infoCard.appendChild(infoTodayPrice)
+            infoCard.appendChild(yesterDayPrice)
+            infoCard.appendChild(infoYesterDayPrice)
+            infoCard.appendChild(lastMonthPrice)
+            infoCard.appendChild(infoLastMonthPrice)
+            infoCard.appendChild(lastYearPrice)
+            infoCard.appendChild(infoLastYearPrice)
+            infoCard.appendChild(fiveYearsPrice)
+            infoCard.appendChild(infoFiveYearsPrice)
+            
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    getCoin()
+}
+    
+
+
