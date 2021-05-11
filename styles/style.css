@@ -47,7 +47,7 @@ nav {
 }
 
 .datacontainer {
-    margin: 0px
+    margin: 0px;
 }
 
 .navButton {
@@ -150,7 +150,7 @@ nav {
 	cursor: pointer;
 	color: #FFF562;
 	font-family: 'Harlow';
-	font-size: 22px;
+	font-size: 30px;
 	font-weight: lighter;
 	padding: 3px 19px;
 	text-decoration: none;
@@ -193,21 +193,34 @@ nav {
     text-align: left;
     border-collapse: collapse;
 }
-.annoyingLookingTable td, table.annoyingLookingTable th {
-    padding: 10px;
+
+.annoyingLookingTable tr {
+    animation: fadeIn 1s;
+    -webkit-animation: fadeIn 1s;
+    -moz-animation: fadeIn 1s;
+    -o-animation: fadeIn 1s;
+    -ms-animation: fadeIn 1s;
 }
+
+.annoyingLookingTable td, table.annoyingLookingTable th {
+    padding: 5px;
+}
+
 .annoyingLookingTable tbody td {
     font-size: 22px;
     font-weight: bolder;
     padding: 0px 0px 0px 20px;
 }
+
 .annoyingLookingTable tr:nth-child(even) {
     background: #FFFFFF;
 }
+
 .annoyingLookingTable thead {
     background: #FA08FA;
     /* position: sticky */
 }
+
 .annoyingLookingTable thead th {
     position: sticky;
     top: 0;
@@ -258,7 +271,7 @@ nav {
     flex-direction: row;
     justify-content: unsafe center;
     padding: 0px 0px 0px 15px;
-    height: 62.7px;
+    height: 65px;
     background-color: #FA08FA;
     font-family: 'Harlow';
     font-size: 32pt;
@@ -393,5 +406,36 @@ nav {
     max-width:100%;
     max-height:100%;
 }
+
+.smallIconBox {
+    padding: 5px;
+    max-width:64px;
+    max-height:64px;
+}
+
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
+  
+  @-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+  }
 
 /*# sourceMappingURL=style.css.map */

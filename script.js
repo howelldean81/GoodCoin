@@ -47,10 +47,6 @@ const usMoney = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2
 })
 
-homeButton.onclick = function() {
-    homePage()
-}
-
 function homePage() {
     // Empty contents of 'data-container'
     fluidDiv.innerHTML = ""
@@ -141,8 +137,11 @@ function homePage() {
     }
 }
 
-// homePage()
 document.body.onload = function() {
+    homePage()
+}
+
+homeButton.onclick = function() {
     homePage()
 }
 
@@ -154,6 +153,7 @@ allCoinsButton.onclick = function () {
     const createTable = document.createElement('table')
     const createTHead = document.createElement('thead')
     const createRow = document.createElement('tr')
+    const createHeadingIcon = document.createElement('th')
     const createHeadingSym = document.createElement('th')
     const createHeadingName = document.createElement('th')
     const createHeadingCost = document.createElement('th')
@@ -175,6 +175,10 @@ allCoinsButton.onclick = function () {
     createTBody.id = 'coinChart'
     createTBody.className = 'annoyingLookingTable'
     createTHead.appendChild(createRow)
+    createRow.appendChild(createHeadingIcon)
+    createHeadingSym.id = 'head-icon'
+    createHeadingSym.scope = 'col'
+    createHeadingSym.innerHTML = ''
     createRow.appendChild(createHeadingSym)
     createHeadingSym.id = 'head-sym'
     createHeadingSym.scope = 'col'
@@ -281,12 +285,29 @@ allCoinsButton.onclick = function () {
             let cell3 = coinRow.insertCell()
             let cell4 = coinRow.insertCell()
             let cell5 = coinRow.insertCell()
+            let cell6 = coinRow.insertCell()
 
-            cell1.innerText = `${coins.Name}`
-            cell2.innerText = `${usMoney.format(coins.Rate)}`
-            cell3.innerText = `${usMoney.format(coins.High)}`
-            cell4.innerText = `${usMoney.format(coins.Low)}`
-            cell5.innerHTML = `${usMoney.format(coins.Cap)}`
+            async function getCoin() {
+                try {
+                    // Get icon and build elements
+                    const res = await fetch(listTickerAll + apiKeyAppend)
+                    const data = await res.json()
+
+                    let coinIcon = data.crypto[coins.Name].icon_url
+                    console.log(coinIcon)
+
+                    cell1.innerHTML = `<img class="smallIconBox" src="${coinIcon}" alt="">`                    
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            getCoin()
+
+            cell2.innerText = `${coins.Name}`
+            cell3.innerText = `${usMoney.format(coins.Rate)}`
+            cell4.innerText = `${usMoney.format(coins.High)}`
+            cell5.innerText = `${usMoney.format(coins.Low)}`
+            cell6.innerHTML = `${usMoney.format(coins.Cap)}`
 
             coinChart.appendChild(coinRow)
         })
@@ -301,6 +322,7 @@ popularButton.onclick = function () {
     const createTable = document.createElement('table')
     const createTHead = document.createElement('thead')
     const createRow = document.createElement('tr')
+    const createHeadingIcon = document.createElement('th')
     const createHeadingSym = document.createElement('th')
     const createHeadingCost = document.createElement('th')
     const createHeadingCap = document.createElement('th')
@@ -321,6 +343,10 @@ popularButton.onclick = function () {
     createTBody.id = 'coinChart'
     createTBody.className = 'annoyingLookingTable'
     createTHead.appendChild(createRow)
+    createRow.appendChild(createHeadingIcon)
+    createHeadingSym.id = 'head-icon'
+    createHeadingSym.scope = 'col'
+    createHeadingSym.innerHTML = ''
     createRow.appendChild(createHeadingSym)
     createHeadingSym.id = 'head-sym'
     createHeadingSym.scope = 'col'
@@ -417,11 +443,28 @@ popularButton.onclick = function () {
             let cell2 = coinRow.insertCell()
             let cell3 = coinRow.insertCell()
             let cell4 = coinRow.insertCell()
+            let cell5 = coinRow.insertCell()
 
-            cell1.innerHTML = `${coins.Name}`
-            cell2.innerHTML = `${usMoney.format(coins.Volume)}`
-            cell3.innerHTML = `${usMoney.format(coins.Rate)}`
-            cell4.innerHTML = `${usMoney.format(coins.Cap)}`
+            async function getCoin() {
+                try {
+                    // Get icon and build elements
+                    const res = await fetch(listTickerAll + apiKeyAppend)
+                    const data = await res.json()
+
+                    let coinIcon = data.crypto[coins.Name].icon_url
+                    console.log(coinIcon)
+
+                    cell1.innerHTML = `<img class="smallIconBox" src="${coinIcon}" alt="">`                    
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            getCoin()
+
+            cell2.innerHTML = `${coins.Name}`
+            cell3.innerHTML = `${usMoney.format(coins.Volume)}`
+            cell4.innerHTML = `${usMoney.format(coins.Rate)}`
+            cell5.innerHTML = `${usMoney.format(coins.Cap)}`
 
             coinChart.appendChild(coinRow)
         })
