@@ -47,7 +47,104 @@ const usMoney = new Intl.NumberFormat('en-US', {
     minimumFractionDigits: 2
 })
 
-homePage()
+homeButton.onclick = function() {
+    homePage()
+}
+
+function homePage() {
+    // Empty contents of 'data-container'
+    fluidDiv.innerHTML = ""
+
+    const cardBanner = document.createElement('div')
+    const cardContainer = document.createElement('div')
+
+    fluidDiv.appendChild(cardBanner)
+    cardBanner.id = 'card-banner'
+    cardBanner.className = 'cardBanner'
+    cardBanner.innerHTML = 'Welcome to Goodcoin, home of the Goodcoin!'
+
+    fluidDiv.appendChild(cardContainer)
+    cardContainer.id = 'card-container'
+    cardContainer.className = 'cardContainer'
+
+    // Get and manipulate JSON from LIVE endpoint
+    async function getChart() {
+        try {
+            const res = await fetch('https://api.coinlayer.com/api/live?access_key=a1f4a05d8a5c89bee72e0f45aa1082d4&expand=1')
+            const data = await res.json()
+            let newArr = []
+            let finalArr = []
+            for (names in data.rates) {
+                Object.entries(data.rates).forEach(i => {
+                    let obj = i[1]
+                    if (i[0] === names) {
+                        Object.assign(obj, {
+                            names: names
+                        })
+                        newArr.push(obj)
+                        finalArr = newArr.map((i) => (
+                            {
+                                Name: i.names,
+                                Rate: i.rate,
+                                Cap: i.cap,
+                                Volume: Math.round(parseInt(i.vol)),
+                            }
+                        ))
+                    }
+                })
+            }
+            allCoins = finalArr.sort((cur, prev) => prev.Rate - cur.Rate)
+            displayResults(allCoins)
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
+    getChart()
+
+    function displayResults(coins) {
+        coins.forEach((coin) => {
+            const coinCard = document.createElement('div')
+            const coinHeader = document.createElement('h1')
+            const coinText = document.createElement('p')
+            const coinIconDiv = document.createElement('div')
+
+            coinCard.className = 'coinCardDiv'
+
+            coinHeader.innerHTML = `${coin.Name}`
+            coinText.innerHTML = `${usMoney.format(coin.Rate)}`
+
+            async function getCoin() {
+                try {
+                    // Get icon and build elements
+                    const res = await fetch(listTickerAll + apiKeyAppend)
+                    const data = await res.json()
+
+                    let coinIcon = data.crypto[coin.Name].icon_url
+                    console.log(coinIcon)
+
+                    coinIconDiv.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
+
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            getCoin()
+
+            cardContainer.appendChild(coinCard)
+            coinCard.appendChild(coinHeader)
+            coinCard.appendChild(coinText)
+            coinCard.appendChild(coinIconDiv)
+
+        })
+
+    }
+}
+
+// homePage()
+document.body.onload = function() {
+    homePage()
+}
 
 allCoinsButton.onclick = function () {
     // Empty contents of data container
@@ -335,17 +432,17 @@ top3Button.onclick = function () {
     // Empty contents of 'data-container'
     fluidDiv.innerHTML = ""
 
-    const cardBanner        = document.createElement('div')
-    const cardContainer     = document.createElement('div')
+    const cardBanner = document.createElement('div')
+    const cardContainer = document.createElement('div')
 
     fluidDiv.appendChild(cardBanner)
-    cardBanner.id           = 'card-banner'
-    cardBanner.className    = 'cardBanner'
-    cardBanner.innerHTML    = 'Top 3 Coins by Market Cap'
+    cardBanner.id = 'card-banner'
+    cardBanner.className = 'cardBanner'
+    cardBanner.innerHTML = 'Top 3 Coins by Market Cap'
 
     fluidDiv.appendChild(cardContainer)
-    cardContainer.id           = 'card-container'
-    cardContainer.className    = 'cardContainer'
+    cardContainer.id = 'card-container'
+    cardContainer.className = 'cardContainer'
 
     // Get and manipulate JSON from LIVE endpoint
     async function getChart() {
@@ -404,118 +501,30 @@ top3Button.onclick = function () {
                     console.log(coinIcon)
 
                     coinIconDiv.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
-
-                } catch (err) {
-                    console.log(err);
-                }}
-            getCoin()
-            cardContainer.appendChild(coinCard)
-            coinCard.appendChild(coinHeader)
-            coinCard.appendChild(coinText)
-            coinCard.appendChild(coinIconDiv)
-        })
-
-    }
-}
-
-function homePage() {
-    // Empty contents of 'data-container'
-    fluidDiv.innerHTML = ""
-
-    const cardBanner        = document.createElement('div')
-    const cardContainer     = document.createElement('div')
-
-    fluidDiv.appendChild(cardBanner)
-    cardBanner.id           = 'card-banner'
-    cardBanner.className    = 'cardBanner'
-    cardBanner.innerHTML    = 'Welcome to Goodcoin, home of the Goodcoin!'
-
-    fluidDiv.appendChild(cardContainer)
-    cardContainer.id           = 'card-container'
-    cardContainer.className    = 'cardContainer'
-
-    // Get and manipulate JSON from LIVE endpoint
-    async function getChart() {
-        try {
-            const res = await fetch('https://api.coinlayer.com/api/live?access_key=a1f4a05d8a5c89bee72e0f45aa1082d4&expand=1')
-            const data = await res.json()
-            let newArr = []
-            let finalArr = []
-            for (names in data.rates) {
-                Object.entries(data.rates).forEach(i => {
-                    let obj = i[1]
-                    if (i[0] === names) {
-                        Object.assign(obj, {
-                            names: names
-                        })
-                        newArr.push(obj)
-                        finalArr = newArr.map((i) => (
-                            {
-                                Name: i.names,
-                                Rate: i.rate,
-                                Cap: i.cap,
-                                Volume: Math.round(parseInt(i.vol)),
-                            }
-                        ))
-                    }
-                })
-            }
-            allCoins = finalArr.sort((cur, prev) => prev.Rate - cur.Rate)
-            displayResults(allCoins)
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    getChart()
-
-    function displayResults(coins) {
-        coins.forEach((coin) => {
-          const coinCard        = document.createElement('div')
-          const coinHeader      = document.createElement('h1')
-          const coinText        = document.createElement('p')
-          const coinIconDiv     = document.createElement('div')
-
-          coinCard.className    = 'coinCardDiv'
-      
-          coinHeader.innerHTML = `${coin.Name}`
-          coinText.innerHTML = `${usMoney.format(coin.Rate)}`
-
-            async function getCoin() {
-                try {
-                    // Get icon and build elements
-                    const res = await fetch(listTickerAll + apiKeyAppend)
-                    const data = await res.json()
-
-                    let coinIcon = data.crypto[coin.Name].icon_url
-                    console.log(coinIcon)
-
-                    coinIconDiv.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
-
+                    
                 } catch (err) {
                     console.log(err);
                 }
             }
             getCoin()
-          
             cardContainer.appendChild(coinCard)
             coinCard.appendChild(coinHeader)
             coinCard.appendChild(coinText)
             coinCard.appendChild(coinIconDiv)
-
         })
-
-}}
+        
+    }
+}
 
 searchButton.onclick = function() {
     // Empty contents of 'data-container'
     fluidDiv.innerHTML = ""
-
+    
     const searchTerm = document.getElementById('search-box').value
-
+    
     const cardBanner        = document.createElement('div')
     const cardContainer     = document.createElement('div')
-
+    
     fluidDiv.appendChild(cardBanner)
     cardBanner.id           = 'card-banner'
     cardBanner.className    = 'cardBanner'
@@ -536,7 +545,7 @@ searchButton.onclick = function() {
             const infoCard = document.createElement('div')
             const todayPrice = document.createElement('h1')
             const infoTodayPrice = document.createElement('h2')
-
+            
             infoCard.className = 'searchCardDiv'
 
             todayPrice.innerHTML = "Price"
@@ -547,12 +556,12 @@ searchButton.onclick = function() {
             lastMonth.setDate(lastMonth.getDate() - 30)
             const res2 = await fetch(hisTickerAll + lastMonth.toISOString().substring(0, 10) + apiKeyAppend)
             const data2 = await res2.json()
-
+            
             let lastMonthRate = data2.rates[searchTerm]
-
+            
             const lastMonthPrice = document.createElement('h1')
             const infoLastMonthPrice = document.createElement('h2')
-
+            
             lastMonthPrice.innerHTML = "Last Month"
             infoLastMonthPrice.innerHTML = `${usMoney.format(lastMonthRate)}`
 
@@ -561,15 +570,15 @@ searchButton.onclick = function() {
             yesterDay.setDate(yesterDay.getDate() -1)
             const res3 = await fetch(hisTickerAll + yesterDay.toISOString().substring(0, 10) + apiKeyAppend)
             const data3 = await res3.json()
-
+            
             let yesterDayRate = data3.rates[searchTerm]
-
+            
             const yesterDayPrice = document.createElement('h1')
             const infoYesterDayPrice = document.createElement('h2')
 
             yesterDayPrice.innerHTML = "Yesterday"
             infoYesterDayPrice.innerHTML = `${usMoney.format(yesterDayRate)}`
-
+            
             // Get last Year's Price and build elements
             let lastYear = new Date()
             lastYear.setDate(lastYear.getDate() -365)
@@ -601,7 +610,7 @@ searchButton.onclick = function() {
             // Get icon and build elements
             const res6 = await fetch(listTickerAll + apiKeyAppend)
             const data6 = await res6.json()
-
+            
             let coinIcon = data6.crypto[searchTerm].icon_url
             console.log(coinIcon)
 
@@ -626,9 +635,6 @@ searchButton.onclick = function() {
             console.log(err);
         }
     }
-
-    getCoin()
-}
     
-
-
+    getCoin()
+}    
