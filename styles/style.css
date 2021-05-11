@@ -250,7 +250,7 @@ nav {
     font-weight: bold;
 }
 
-.annoyingLookingTable tbody>tr>:nth-child(1){
+.annoyingLookingTable tbody>tr>:nth-child(2){
     /* color:#00bef3; */
     font-size: 20pt;
     font-weight: bolder;
@@ -258,7 +258,7 @@ nav {
 	-webkit-text-fill-color: #00bef3;
    }
 
-.annoyingLookingTable tbody>tr>:nth-child(1):hover {
+.annoyingLookingTable tbody>tr>:nth-child(2):hover {
     /* color:#00bef3; */
     font-size: 20pt;
     font-weight: bolder;
