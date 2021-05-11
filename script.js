@@ -117,9 +117,11 @@ function homePage() {
                     const data = await res.json()
 
                     let coinIcon = data.crypto[coin.Name].icon_url
+                    let coinName = data.crypto[coin.Name].name
                     console.log(coinIcon)
 
                     coinIconDiv.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
+                        + `<p>${coinName}</p>`
 
                 } catch (err) {
                     console.log(err);
@@ -541,10 +543,12 @@ top3Button.onclick = function () {
                     const data = await res.json()
 
                     let coinIcon = data.crypto[coin.Name].icon_url
+                    let coinName = data.crypto[coin.Name].name
                     console.log(coinIcon)
 
                     coinIconDiv.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
-                    
+                        + `<p>${coinName}</p>`
+
                 } catch (err) {
                     console.log(err);
                 }
@@ -582,6 +586,7 @@ searchButton.onclick = function() {
             // Get Today and build elements
             const res = await fetch(liveTickerAll + apiKeyAppend)
             const data = await res.json()
+
             const searchTerm = document.getElementById('card-banner').innerHTML
             let todayRate = data.rates[searchTerm]
 
