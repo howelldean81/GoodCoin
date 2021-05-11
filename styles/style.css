@@ -276,7 +276,7 @@ nav {
     background-image: url(../Assets/Testing/card_background.png);
     display: flex;
     flex-direction: column;
-    height: 300px;
+    max-height: 100%;
     width: 300px;
     margin: 25px;
     background-color: #FFF562;
@@ -390,6 +390,8 @@ nav {
 
 .iconBox {
     padding: 25px;
+    max-width:100%;
+    max-height:100%;
 }
 
 /*# sourceMappingURL=style.css.map */

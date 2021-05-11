@@ -21,8 +21,6 @@ http://api.coinlayer.com/api/timeframe  |   http://api.coinlayer.com/api/change 
 -------------------------------------------------------------------------------------
 */
 
-// Testing
-
 // API stuff
 const apiKeyAppend = "?access_key=a1f4a05d8a5c89bee72e0f45aa1082d4"
 const apiExpand = "&expand=1"
@@ -48,49 +46,6 @@ const usMoney = new Intl.NumberFormat('en-US', {
     currency: 'USD',
     minimumFractionDigits: 2
 })
-
-/*
--------------------------------------------------------------------------------------
-* For use later...                                                                  *
--------------------------------------------------------------------------------------
-async function toTheMoon() {
-    try {
-        const res = await fetch(liveTickerAll + apiKeyAppend)
-        const data = await res.json()
-        console.log(data.rates.DOGE);
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-async function listRates() {
-    try {
-        const res = await fetch(listTickerAll + apiKeyAppend)
-        const data = await res.json()
-        console.log(data);
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-async function list30Rates() {
-    let lastMonth = new Date();
-    lastMonth.setDate(lastMonth.getDate() - 30)
-    console.log(lastMonth.toISOString().substring(0, 10))
-    try {
-        const res = await fetch(hisTickerAll + lastMonth + apiKeyAppend)
-        const data = await res.json()
-        console.log(data);
-    } catch (err) {
-        console.log(err);
-    }
-}
-function getLastMonth() {
-    var lastMonth = new Date();
-    lastMonth.setDate(lastMonth.getDate() - 30)
-    console.log(lastMonth.toISOString().substring(0, 10))
-}
-*/
 
 homePage()
 
@@ -432,15 +387,32 @@ top3Button.onclick = function () {
             const coinCard = document.createElement('div')
             const coinHeader = document.createElement('h1')
             const coinText = document.createElement('p')
+            const coinIconDiv = document.createElement('div')
 
             coinCard.className = 'coinCardDiv'
 
             coinHeader.innerHTML = `${coin.Name}`
             coinText.innerHTML = `${usMoney.format(coin.Cap)}`
 
+            async function getCoin() {
+                try {
+                    // Get icon and build elements
+                    const res = await fetch(listTickerAll + apiKeyAppend)
+                    const data = await res.json()
+
+                    let coinIcon = data.crypto[coin.Name].icon_url
+                    console.log(coinIcon)
+
+                    coinIconDiv.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
+
+                } catch (err) {
+                    console.log(err);
+                }}
+            getCoin()
             cardContainer.appendChild(coinCard)
             coinCard.appendChild(coinHeader)
             coinCard.appendChild(coinText)
+            coinCard.appendChild(coinIconDiv)
         })
 
     }
@@ -502,15 +474,35 @@ function homePage() {
           const coinCard        = document.createElement('div')
           const coinHeader      = document.createElement('h1')
           const coinText        = document.createElement('p')
+          const coinIconDiv     = document.createElement('div')
 
           coinCard.className    = 'coinCardDiv'
       
           coinHeader.innerHTML = `${coin.Name}`
           coinText.innerHTML = `${usMoney.format(coin.Rate)}`
+
+            async function getCoin() {
+                try {
+                    // Get icon and build elements
+                    const res = await fetch(listTickerAll + apiKeyAppend)
+                    const data = await res.json()
+
+                    let coinIcon = data.crypto[coin.Name].icon_url
+                    console.log(coinIcon)
+
+                    coinIconDiv.innerHTML = `<img class="iconBox" src="${coinIcon}" alt="">`
+
+                } catch (err) {
+                    console.log(err);
+                }
+            }
+            getCoin()
           
-          cardContainer.appendChild(coinCard)
-          coinCard.appendChild(coinHeader)
-          coinCard.appendChild(coinText)
+            cardContainer.appendChild(coinCard)
+            coinCard.appendChild(coinHeader)
+            coinCard.appendChild(coinText)
+            coinCard.appendChild(coinIconDiv)
+
         })
 
 }}
